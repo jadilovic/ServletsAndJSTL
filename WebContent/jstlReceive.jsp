@@ -23,5 +23,9 @@
 <c:out value="${link}" /><br/>
 
 ${link}<br/>
+
+<c:forEach var="animal" items="${animals}">
+${animal.name}: ${animal.id}<br/>
+</c:forEach>
 </body>
 </html>

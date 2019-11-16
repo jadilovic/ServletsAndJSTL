@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -50,6 +52,13 @@ public class ServletPassingObjects extends HttpServlet {
 		request.setAttribute("map1", map1);
 		
 		request.setAttribute("link", "<a href='www.klix.ba'>Link</a>");
+		
+		List<User> list1 = new ArrayList<>();
+		list1.add(new User("fox", 1));
+		list1.add(new User("chicken", 2));
+		list1.add(new User("dog", 3));
+		
+		session.setAttribute("animals", list1);
 		
 		request.getRequestDispatcher("/jstlReceive.jsp").forward(request, response);
 		
