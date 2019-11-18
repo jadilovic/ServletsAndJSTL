@@ -19,7 +19,7 @@
 			
 			<c:set var="imageName" value="${image.stem}.${image.image_extension}"></c:set>
 				<td>
-					<a href="<c:url value="/Controller?action=image&image=${image.id}" />">
+					<a href="<c:url value="/Controller?action=image&imageID=${image.id}" />">
 						<img width="80" src="${pageContext.request.contextPath}/pics/${imageName}">
 					</a>
 				</td>

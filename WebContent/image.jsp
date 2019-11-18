@@ -5,7 +5,7 @@
 
 <sql:setDataSource var="ds" dataSource="jdbc/picturesquirrel" />
 <sql:query dataSource="${ds}" sql="SELECT * FROM images WHERE id=?" var="results">
-	<sql:param>${param.image}</sql:param>
+	<sql:param>${param.imageID}</sql:param>
 </sql:query>
 	<c:set scope="page" var="image" value="${results.rows[0]}"></c:set>	
 	<c:set scope="page" var="imageName" value="${image.stem}.${image.image_extension}"></c:set>
