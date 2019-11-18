@@ -18,7 +18,11 @@
 		</c:if>
 			
 			<c:set var="imageName" value="${image.stem}.${image.image_extension}"></c:set>
-			<td><img width="80" src="${pageContext.request.contextPath}/pics/${imageName}"></td>
+				<td>
+					<a href="<c:url value="/Controller?action=image&image=${image.id}" />">
+						<img width="80" src="${pageContext.request.contextPath}/pics/${imageName}">
+					</a>
+				</td>
 		
 		<c:if test="${row.index + 1 % tableWidth == 0}">
 			</tr>

@@ -1,6 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +37,16 @@ public class Controller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/home.jsp").forward(request, response);
+		String action = request.getParameter("action");
+		
+		Map<String, String> actionMap = new HashMap<>();
+		actionMap.put("image", "/image.jsp");
+		actionMap.put("home", "/homeTable.jsp");
+		
+		if(action == null || !actionMap.containsKey(action))
+			action = "home";
+		
+		request.getRequestDispatcher(actionMap.get(action)).forward(request, response);
 	}
 
 	/**
