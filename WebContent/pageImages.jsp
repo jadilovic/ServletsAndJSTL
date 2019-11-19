@@ -1,15 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql"  uri="http://java.sun.com/jsp/jstl/sql"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>${param.title}</title>
-</head>
-<body>
-<f:view>
-Page All Images
-</f:view>
-</body>
-</html>
+
+<c:import url="/pageHeader.jsp"></c:import>
+
+<sql:setDataSource var="ds" dataSource="jdbc/picturesquirrel" />
+<sql:query dataSource="${ds}" sql="SELECT * FROM images" var="results"></sql:query>
+
+<c:forEach var="image" items="${results.rows}" >
+	<c:set var="imageID" value="${image.id}"></c:set>
+	<c:set var="imageName" value="${image.stem}.${image.image_extension}"></c:set>
+	<c:set var="imageLocation" value="${pageContext.request.contextPath}/pics/${imageName}"></c:set>
+	
+	<a href="${pageContext.request.contextPath}/PageController?action=image&id=${imageID}">
+		<img width="80" src="${imageLocation}" />
+	</a>
+	
+</c:forEach>
+
+<c:import url="/pageFooter.jsp"></c:import>

@@ -9,6 +9,7 @@
 </sql:query>
 	<c:set scope="page" var="image" value="${results.rows[0]}"></c:set>	
 	<c:set scope="page" var="imageName" value="${image.stem}.${image.image_extension}"></c:set>
+	
 	<img src="${pageContext.request.contextPath}/pics/${imageName}">
 
 <c:import url="footer.jsp"></c:import>
