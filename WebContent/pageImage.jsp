@@ -15,7 +15,35 @@
 <c:set scope="page" var="imageName" value="${imageInfo.stem}.${imageInfo.image_extension}"></c:set>
 
 <p><c:out value="${fn:toUpperCase(fn:substring(imageInfo.stem, 0, 1))}${fn:toLowerCase(fn:substring(imageInfo.stem, 1, -1))}" /></p>
+<p><c:out value="${fn:length(imageInfo.stem)}"></c:out></p>
 
 <img src="${pageContext.request.contextPath}/pics/${imageName}" />
+
+<form action="${pageContext.request.contextPath}/PageController?id=${imageInfo.id}" method="post">
+	Grade good: <input type="radio" name="grade" value="1">
+	Grade very good: <input type="radio" name="grade" value="2" checked>
+	Grade great: <input type="radio" name="grade" value="3">
+	<input type="submit" value="OK">
+</form>
+
+<c:set scope="page" var="average_ranking" value="${imageInfo.average_ranking}" />
+
+<c:if test='${param.action == "rate"}'>
+	<c:set scope="page" var="newRating"
+		value="${(imageInfo.average_ranking * imageInfo.ranking + param.grade)/(imageInfo.ranking + 1)}" />
+			<c:set scope="page" var="average_ranking" value="${newRating}" />
+			
+		<sql:update dataSource="${ds}" sql="UPDATE images SET ranking=? WHERE id=?" var="results">
+		<sql:param>${imageInfo.ranking + 1}</sql:param>
+		<sql:param>${param.id}</sql:param>
+		</sql:update>
+		
+		<sql:update dataSource="${ds}" sql="UPDATE images SET average_ranking=? WHERE id=?" var="results">
+		<sql:param>${newRating}</sql:param>
+		<sql:param>${param.id}</sql:param>
+		</sql:update>
+	</c:if>
+	
+			<p><c:out value="${average_ranking}"></c:out></p>
 
 <c:import url="/pageFooter.jsp"></c:import>
