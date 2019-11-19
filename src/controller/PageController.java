@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Controller
+ * Servlet implementation class PageController
  */
-@WebServlet("/Controller")
-public class Controller extends HttpServlet {
+@WebServlet("/PageController")
+public class PageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Controller() {
+    public PageController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,14 +39,15 @@ public class Controller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		
-		Map<String, String> actionMap = new HashMap<>();
-		actionMap.put("image", "/image.jsp?title=Single Image");
-		actionMap.put("home", "/homeTable.jsp?title=All Images");
+		Map<String, String> actionPage = new HashMap<>();
+		actionPage.put("images", "/pageImages.jsp?title=All Images");
+		actionPage.put("image", "/pageImage.jsp?title=Single Image");
+		actionPage.put("start", "/pageHome.jsp?title=Home Page");
 		
-		if(action == null || !actionMap.containsKey(action))
-			action = "home";
+		if(action == null || !actionPage.containsKey(action))
+			action = "start";
 		
-		request.getRequestDispatcher(actionMap.get(action)).forward(request, response);
+		request.getRequestDispatcher(actionPage.get(action)).forward(request, response);
 	}
 
 	/**
