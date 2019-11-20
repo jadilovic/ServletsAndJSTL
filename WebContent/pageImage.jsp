@@ -2,6 +2,9 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql"  uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<% pageContext.setAttribute("javax.servlet.jsp.jstl.fmt.fallbackLocale.page", java.util.Locale.US); %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="ph" %>
 
 <c:import url="/pageHeader.jsp"></c:import>
 
@@ -17,6 +20,7 @@
 <p><c:out value="${fn:toUpperCase(fn:substring(imageInfo.stem, 0, 1))}${fn:toLowerCase(fn:substring(imageInfo.stem, 1, -1))}" /></p>
 <p><c:out value="${fn:length(imageInfo.stem)}"></c:out></p>
 
+<p><ph:image stem="${imageInfo.stem}" extension="${imageInfo.image_extension}" /></p>
 <img src="${pageContext.request.contextPath}/pics/${imageName}" />
 
 <form action="${pageContext.request.contextPath}/PageController?id=${imageInfo.id}" method="post">
@@ -43,7 +47,10 @@
 		<sql:param>${param.id}</sql:param>
 		</sql:update>
 	</c:if>
-	
-			<p><c:out value="${average_ranking}"></c:out></p>
+			
+	<h3>Number Format:</h3>
+      <c:set var = "balance" value = "${average_ranking}" />
+	<p>Formatted Number (3): <fmt:formatNumber type = "number" 
+         maxFractionDigits = "1" value = "${balance}" /></p>
 
 <c:import url="/pageFooter.jsp"></c:import>
